@@ -1,6 +1,6 @@
 import { Ticket } from "src/api/v1/models/ticketModel";
 
-export const tickets: Ticket[] = [
+export const mockTickets: Ticket[] = [
     {
         id: 1,
         title: "Update footer copyright year",
