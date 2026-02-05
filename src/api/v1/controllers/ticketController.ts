@@ -105,12 +105,13 @@ export const updateTicket = async (
                 data: updatedTicket,
             });
         }
-    } catch (error: any) {
-        if (error.message.includes("not found")) {
-            res.status(HTTP_STATUS.NOT_FOUND).json({
-                message: error.message,
-            });
-        }
+    } catch (error: unknown) {
+        if (error instanceof Error)
+            if (error.message.includes("not found")) {
+                res.status(HTTP_STATUS.NOT_FOUND).json({
+                    message: error.message,
+                });
+            }
         next(error);
     }
 };
@@ -150,12 +151,13 @@ export const getTicketById = async (
             message: "Ticket retrieved successfully",
             data: ticket,
         });
-    } catch (error: any) {
-        if (error.message.includes("not found")) {
-            res.status(HTTP_STATUS.NOT_FOUND).json({
-                message: error.message,
-            });
-        }
+    } catch (error: unknown) {
+        if (error instanceof Error)
+            if (error.message.includes("not found")) {
+                res.status(HTTP_STATUS.NOT_FOUND).json({
+                    message: error.message,
+                });
+            }
         next(error);
     }
 };
@@ -175,12 +177,13 @@ export const getTicketUrgencyScore = async (
             message: "Ticket urgency calculated",
             data: ticket,
         });
-    } catch (error: any) {
-        if (error.message.includes("not found")) {
-            res.status(HTTP_STATUS.NOT_FOUND).json({
-                message: error.message,
-            });
-        }
+    } catch (error: unknown) {
+        if (error instanceof Error)
+            if (error.message.includes("not found")) {
+                res.status(HTTP_STATUS.NOT_FOUND).json({
+                    message: error.message,
+                });
+            }
         next(error);
     }
 };
