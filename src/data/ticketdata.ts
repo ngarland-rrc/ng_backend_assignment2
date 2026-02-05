@@ -7,7 +7,7 @@ export const mockTickets: Ticket[] = [
         description: "Footer still shows 2024",
         priority: "low",
         status: "open",
-        createdAt: new Date(Date.now() - 3 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ export const mockTickets: Ticket[] = [
         description: "Upload takes 30+ seconds",
         priority: "medium",
         status: "open",
-        createdAt: new Date(Date.now() - 2 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
     },
     {
         id: 3,
@@ -23,7 +23,7 @@ export const mockTickets: Ticket[] = [
         description: "Dashboard takes 10+ seconds to load",
         priority: "medium",
         status: "open",
-        createdAt: new Date(Date.now() - 6 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
     },
     {
         id: 4,
@@ -31,7 +31,7 @@ export const mockTickets: Ticket[] = [
         description: "Reset emails taking over 30 minutes",
         priority: "high",
         status: "open",
-        createdAt: new Date(Date.now() - 5 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
     },
     {
         id: 5,
@@ -39,7 +39,7 @@ export const mockTickets: Ticket[] = [
         description: "PDF export fails silently",
         priority: "high",
         status: "open",
-        createdAt: new Date(Date.now() - 9 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000),
     },
     {
         id: 6,
@@ -47,7 +47,7 @@ export const mockTickets: Ticket[] = [
         description: "Users report blank screen on login",
         priority: "critical",
         status: "open",
-        createdAt: new Date(Date.now() - 6 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
     },
     {
         id: 7,
@@ -55,6 +55,6 @@ export const mockTickets: Ticket[] = [
         description: "Dark mode doesn't persist after refresh",
         priority: "medium",
         status: "resolved",
-        createdAt: new Date(Date.now() - 10 * 24 * 60 * 1000),
+        createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
     },
 ]

@@ -1,5 +1,6 @@
 import { Ticket } from "../models/ticketModel";
-import { mockTickets } from "src/data/ticketdata";
+import { urgencyResponse } from "../models/urgencyResponseModel";
+import { mockTickets } from "../../../data/ticketdata";
 
 /**
  * Retrieves all mockTickets from storage
@@ -79,17 +80,81 @@ export const deleteTicket = async (id: number): Promise<void> => {
 };
 
 /**
- * 
+ * Retrieves a ticket from storage
  * @param id - The ID of the ticket to be retrieved
  * @returns - The matching ticket
  * @throws - Error if ticket with given ID is not found
  */
 export const getTicketById = async (id: number): Promise<Ticket> => {
-    const index: number = mockTickets.findIndex((tickets: Ticket) => tickets.id === id);
+    const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
         throw new Error(`Ticket with ID ${id} not found`);
     }
 
     return structuredClone(mockTickets[index])
+};
+
+/**
+ * Calculates and returns 
+ * @param id 
+ * @returns 
+ */
+export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse> => {
+    const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
+
+    if (index === -1) {
+        throw new Error(`Event with ID ${id} not found`);
+    }
+
+    const priorityScores: { [key in "critical" | "high" | "medium" | "low"]: number } = {
+        critical: 50,
+        high: 30,
+        medium: 20,
+        low: 10,
+    };
+
+    const { title, description, priority, status, createdAt } = mockTickets[index];
+
+    const ticketAge: number = status === "resolved"
+        ? 0 :
+        Math.round((new Date().getTime() - new Date(createdAt).getTime()) / (1000 * 60 * 60 * 24));
+
+    const urgencyScore: number = Math.round(priorityScores[priority as "critical" | "high" | "medium" | "low"] + (ticketAge * 5));
+
+
+    let urgencyLevel: string = "New";
+
+    switch (true) {
+        case urgencyScore >= 80:
+            urgencyLevel = "Critical. Immediate attention required.";
+            break;
+        case urgencyScore >= 55:
+            urgencyLevel = "High urgency. Prioritize resolution.";
+            break;
+        case urgencyScore >= 30:
+            urgencyLevel = "Moderate. Schedule for attention.";
+            break;
+        case urgencyScore > 0:
+            urgencyLevel = "Low urgency. Address when capacity allows.";
+            break;
+        case urgencyScore === 0:
+            urgencyLevel = "Minimal, Ticket resolved."
+
+    }
+
+
+    const response: urgencyResponse = {
+        id: id,
+        title: title,
+        description: description,
+        priority: priority,
+        status: status,
+        createdAt: createdAt,
+        ticketAge: ticketAge,
+        urgencyScore: urgencyScore,
+        urgencyLevel: urgencyLevel,
+    }
+
+    return response
 }

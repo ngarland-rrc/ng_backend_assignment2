@@ -138,10 +138,10 @@ export const getTicketUrgencyScore = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { id } = req.params;
+        const id = Number(req.params.id);
         const ticket: Ticket = await ticketServices.getTicketUrgencyScore(id);
         res.status(HTTP_STATUS.OK).json({
-            message: "Ticket retrieved successfully",
+            message: "Ticket urgency calculated",
             data: ticket,
         });
     } catch (error) {

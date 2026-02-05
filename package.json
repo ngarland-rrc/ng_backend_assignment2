@@ -4,7 +4,7 @@
   "description": "This module is to help us learn how to design API routes following RESTful principles and implement API communication to a facilitate client-server communication.",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/constants/server.ts",
+    "start": "ts-node src/server.ts",
     "build": "tsc",
     "test": "jest"
   },
