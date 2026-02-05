@@ -94,7 +94,10 @@ export const updateTicket = async (
 
             const { priority, status } = req.body;
 
-            const updateData = { priority, status };
+            const updateData: {
+                priority: string;
+                status: string;
+            } = { priority, status };
 
             const updatedTicket: Ticket = await ticketServices.updateTicket((id), updateData);
             res.status(HTTP_STATUS.OK).json({
@@ -118,7 +121,7 @@ export const deleteTicket = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const id = Number(req.params.id)
+        const id: number = Number(req.params.id)
         await ticketServices.deleteTicket(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket deleted successfully",
