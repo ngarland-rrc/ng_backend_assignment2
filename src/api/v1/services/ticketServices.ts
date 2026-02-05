@@ -1,12 +1,11 @@
 import { Ticket } from "../models/ticketModel";
 import { mockTickets } from "src/data/ticketdata";
 
-
 /**
- * Retrieves all tickets from storage
- * @returns Array of all tickets
+ * Retrieves all mockTickets from storage
+ * @returns Array of all mockTickets
  */
-export const getAllTickets = async (): Promise<Ticket[]> => {
+export const getAllMockTickets = async (): Promise<Ticket[]> => {
     return structuredClone(mockTickets);
 };
 
@@ -40,42 +39,41 @@ export const createTicket = async (ticketData: {
 };
 
 /**
- * Updates (replaces) an existing item
- * @param id - The ID of the item to update
- * @param ticketData - The fields to updates (name and/or description)
- * @returns The updated item
- * @throws Error if item with given ID is not found
+ * Updates an existing ticket
+ * @param id - The ID of the ticket to update
+ * @param ticketData - The fields to updates (priority and/or status)
+ * @returns The updated ticket
+ * @throws Error if ticket with given ID is not found
  */
-export const updateItem = async (
-    id: string,
-    ticketData: Pick<Ticket, "name" | "description">
+export const updateTicket = async (
+    id: number,
+    ticketData: Pick<Ticket, "priority" | "status">
 ): Promise<Ticket> => {
-    const index: number = tickets.findIndex((item: Ticket) => item.id === id);
+    const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
         throw new Error(`Ticket with ID ${id} not found`);
     }
 
-    tickets[index] = {
-        ...tickets[index],
+    mockTickets[index] = {
+        ...mockTickets[index],
         ...ticketData,
-        updatedAt: new Date(),
     };
 
-    return structuredClone(tickets[index]);
+    return structuredClone(mockTickets[index]);
 };
 
 /**
- * Deletes an item from storage
- * @param id - The ID of the item to delete
- * @throws Error if item with given ID is not found
+ * Deletes an ticket from storage
+ * @param id - The ID of the ticket to delete
+ * @throws Error if ticket with given ID is not found
  */
-export const deleteItem = async (id: string): Promise<void> => {
-    const index: number = tickets.findIndex((item: Ticket) => item.id === id);
+export const deleteTicket = async (id: number): Promise<void> => {
+    const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
         throw new Error(`Ticket with ID ${id} not found`);
     }
 
-    tickets.splice(index, 1);
+    mockTickets.splice(index, 1);
 };
