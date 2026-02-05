@@ -114,7 +114,7 @@ export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse
         low: 10,
     };
 
-    const { title, description, priority, status, createdAt } = mockTickets[index];
+    const { title, priority, status, createdAt } = mockTickets[index];
 
     const ticketAge: number = status === "resolved"
         ? 0 :
@@ -147,7 +147,6 @@ export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse
     const response: urgencyResponse = {
         id: id,
         title: title,
-        description: description,
         priority: priority,
         status: status,
         createdAt: createdAt,

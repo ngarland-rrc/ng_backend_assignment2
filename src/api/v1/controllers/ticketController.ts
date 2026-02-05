@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { HTTP_STATUS } from "../../../constants/httpConstants";
 import * as ticketServices from "../services/ticketServices";
 import type { Ticket } from "../models/ticketModel";
+import { urgencyResponse } from "../models/urgencyResponseModel";
 
 const allowedPriorities = ["critical", "high", "medium", "low"];
 const allowedStatus = ["open", "in-progress", "resolved"];
@@ -139,7 +140,7 @@ export const getTicketUrgencyScore = async (
 ): Promise<void> => {
     try {
         const id = Number(req.params.id);
-        const ticket: Ticket = await ticketServices.getTicketUrgencyScore(id);
+        const ticket: urgencyResponse = await ticketServices.getTicketUrgencyScore(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket urgency calculated",
             data: ticket,
