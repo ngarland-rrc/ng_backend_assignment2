@@ -78,15 +78,12 @@ export const updateTicket = async (
                 message: `Invalid priority. Must be one of: ${allowedStatus.join(", ")}`,
             });
 
-
         } else {
 
             const id = Number(req.params.id);
 
-            // Extract update fields
             const { priority, status } = req.body;
 
-            // Create update data object with only the fields that can be updated
             const updateData = { priority, status };
 
             const updatedTicket: Ticket = await ticketServices.updateTicket((id), updateData);
@@ -95,7 +92,12 @@ export const updateTicket = async (
                 data: updatedTicket,
             });
         }
-    } catch (error) {
+    } catch (error: any) {
+        if (error.message.includes("not found")) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: error.message,
+            });
+        }
         next(error);
     }
 };
@@ -106,12 +108,17 @@ export const deleteTicket = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const id = Number(req.params.id)
         await ticketServices.deleteTicket(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket deleted successfully",
         });
-    } catch (error) {
+    } catch (error: any) {
+        if (error.message.includes("not found")) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: error.message,
+            });
+        }
         next(error);
     }
 };
@@ -123,15 +130,24 @@ export const getTicketById = async (
 ): Promise<void> => {
     try {
         const id = Number(req.params.id);
-        const ticket: Ticket = await ticketServices.getTicketById(id);
+
+        const ticket = await ticketServices.getTicketById(id);
+
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket retrieved successfully",
             data: ticket,
         });
-    } catch (error) {
+    } catch (error: any) {
+        if (error.message.includes("not found")) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: error.message,
+            });
+        }
         next(error);
     }
 };
+
+
 
 export const getTicketUrgencyScore = async (
     req: Request,
@@ -141,11 +157,17 @@ export const getTicketUrgencyScore = async (
     try {
         const id = Number(req.params.id);
         const ticket: urgencyResponse = await ticketServices.getTicketUrgencyScore(id);
+
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket urgency calculated",
             data: ticket,
         });
-    } catch (error) {
+    } catch (error: any) {
+        if (error.message.includes("not found")) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: error.message,
+            });
+        }
         next(error);
     }
 };

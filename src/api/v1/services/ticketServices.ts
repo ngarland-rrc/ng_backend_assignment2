@@ -53,7 +53,7 @@ export const updateTicket = async (
     const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
-        throw new Error(`Ticket with ID ${id} not found`);
+        throw new Error("Ticket not found");
     }
 
     mockTickets[index] = {
@@ -73,7 +73,7 @@ export const deleteTicket = async (id: number): Promise<void> => {
     const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
-        throw new Error(`Ticket with ID ${id} not found`);
+        throw new Error("Ticket not found");
     }
 
     mockTickets.splice(index, 1);
@@ -89,7 +89,7 @@ export const getTicketById = async (id: number): Promise<Ticket> => {
     const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
-        throw new Error(`Ticket with ID ${id} not found`);
+        throw new Error("Ticket not found");
     }
 
     return structuredClone(mockTickets[index])
@@ -104,7 +104,7 @@ export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse
     const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
 
     if (index === -1) {
-        throw new Error(`Event with ID ${id} not found`);
+        throw new Error("Ticket not found");
     }
 
     const priorityScores: { [key in "critical" | "high" | "medium" | "low"]: number } = {
