@@ -96,9 +96,10 @@ export const getTicketById = async (id: number): Promise<Ticket> => {
 };
 
 /**
- * Calculates and returns 
- * @param id 
- * @returns 
+ * Calculates and returns the urgencyResponse object
+ * @param id - The ID of the ticket to be calculated
+ * @returns - The calculated urgencyResponse
+ * @throws - Error if ticket with ID is not found
  */
 export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse> => {
     const index: number = mockTickets.findIndex((ticket: Ticket) => ticket.id === id);
