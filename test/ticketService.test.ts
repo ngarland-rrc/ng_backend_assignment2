@@ -82,6 +82,7 @@ describe("getTicketUrgencyScore", () => {
 
         expect(result.urgencyLevel).toBe("Low urgency. Address when capacity allows.");
     });
+
     it("calculates resolved urgencyLevel", async () => {
         const ticket = {
             id: 1,
