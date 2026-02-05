@@ -105,8 +105,8 @@ export const deleteEvent = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { title } = req.params;
-        await ticketServices.deleteEvent(Number(title as string));
+        const { id } = req.params;
+        await ticketServices.deleteEvent(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket deleted successfully",
         });
