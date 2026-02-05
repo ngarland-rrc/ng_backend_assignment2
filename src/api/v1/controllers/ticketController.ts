@@ -46,10 +46,10 @@ export const createTicket = async (
             });
         } else {
             // Extract only the fields we need
-            const { title, description, priority } = req.body;
-            const eventData = { title, description, priority };
+            const { title, description, priority, status } = req.body;
+            const ticketData = { title, description, priority, status };
 
-            const newTicket: Ticket = await ticketServices.createTicket(eventData);
+            const newTicket: Ticket = await ticketServices.createTicket(ticketData);
             res.status(HTTP_STATUS.CREATED).json({
                 message: "Ticket created successfully",
                 data: newTicket,
@@ -80,7 +80,7 @@ export const updateTicket = async (
 
         } else {
 
-            const { id } = req.params;
+            const id = Number(req.params.id);
 
             // Extract update fields
             const { priority, status } = req.body;
@@ -105,7 +105,7 @@ export const deleteTicket = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { id } = req.params;
+        const id = Number(req.params.id);
         await ticketServices.deleteTicket(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket deleted successfully",
@@ -121,7 +121,7 @@ export const getTicketById = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { id } = req.params;
+        const id = Number(req.params.id);
         const ticket: Ticket = await ticketServices.getTicketById(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket retrieved successfully",

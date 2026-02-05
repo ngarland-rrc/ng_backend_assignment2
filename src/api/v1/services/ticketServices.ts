@@ -5,7 +5,7 @@ import { mockTickets } from "src/data/ticketdata";
  * Retrieves all mockTickets from storage
  * @returns Array of all mockTickets
  */
-export const getAllMockTickets = async (): Promise<Ticket[]> => {
+export const getAllTickets = async (): Promise<Ticket[]> => {
     return structuredClone(mockTickets);
 };
 
@@ -77,3 +77,19 @@ export const deleteTicket = async (id: number): Promise<void> => {
 
     mockTickets.splice(index, 1);
 };
+
+/**
+ * 
+ * @param id - The ID of the ticket to be retrieved
+ * @returns - The matching ticket
+ * @throws - Error if ticket with given ID is not found
+ */
+export const getTicketById = async (id: number): Promise<Ticket> => {
+    const index: number = mockTickets.findIndex((tickets: Ticket) => tickets.id === id);
+
+    if (index === -1) {
+        throw new Error(`Ticket with ID ${id} not found`);
+    }
+
+    return structuredClone(mockTickets[index])
+}
