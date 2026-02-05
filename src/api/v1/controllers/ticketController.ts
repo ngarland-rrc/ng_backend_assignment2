@@ -45,8 +45,13 @@ export const createTicket = async (
             res.status(HTTP_STATUS.BAD_REQUEST).json({
                 message: `Invalid priority. Must be one of: ${allowedPriorities.join(", ")}`,
             });
+
+        } else if (!allowedStatus.includes(req.body.status)) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: `Invalid priority. Must be one of: ${allowedStatus.join(", ")}`,
+            });
+
         } else {
-            // Extract only the fields we need
             const { title, description, priority, status } = req.body;
             const ticketData = { title, description, priority, status };
 
