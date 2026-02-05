@@ -116,16 +116,18 @@ export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse
 
     const { title, priority, status, createdAt } = mockTickets[index];
 
-    const ticketAge: number = status === "resolved"
-        ? 0 :
-        Math.round((new Date().getTime() - new Date(createdAt).getTime()) / (1000 * 60 * 60 * 24));
+    const ticketAge: number = Math.round((new Date().getTime() - new Date(createdAt).getTime()) / (1000 * 60 * 60 * 24));
 
-    const urgencyScore: number = Math.round(priorityScores[priority as "critical" | "high" | "medium" | "low"] + (ticketAge * 5));
+    let urgencyScore: number = Math.round(priorityScores[priority as "critical" | "high" | "medium" | "low"] + (ticketAge * 5));
 
 
     let urgencyLevel: string = "New";
 
     switch (true) {
+        case status === "resolved":
+            urgencyScore = 0
+            urgencyLevel = "Minimal, Ticket resolved.";
+            break;
         case urgencyScore >= 80:
             urgencyLevel = "Critical. Immediate attention required.";
             break;
@@ -137,10 +139,6 @@ export const getTicketUrgencyScore = async (id: number): Promise<urgencyResponse
             break;
         case urgencyScore > 0:
             urgencyLevel = "Low urgency. Address when capacity allows.";
-            break;
-        case urgencyScore === 0:
-            urgencyLevel = "Minimal, Ticket resolved."
-
     }
 
 
