@@ -1,5 +1,7 @@
+import { Ticket } from "src/api/v1/models/ticketModel";
 import { getTicketUrgencyScore, } from "../src/api/v1/services/ticketServices";
 import { mockTickets } from "../src/data/ticketdata";
+import { urgencyResponse } from "src/api/v1/models/urgencyResponseModel";
 
 describe("getTicketUrgencyScore", () => {
     beforeEach(() => {
@@ -16,7 +18,7 @@ describe("getTicketUrgencyScore", () => {
     });
 
     it("calculates Critical urgencyLevel", async () => {
-        const ticket = {
+        const ticket: Ticket = {
             id: 1,
             title: "Test",
             description: "Test",
@@ -27,13 +29,13 @@ describe("getTicketUrgencyScore", () => {
 
         mockTickets.push(ticket);
 
-        const result = await getTicketUrgencyScore(1);
+        const result: urgencyResponse = await getTicketUrgencyScore(1);
 
         expect(result.urgencyLevel).toBe("Critical. Immediate attention required.");
     });
 
     it("calculates high urgencyLevel", async () => {
-        const ticket = {
+        const ticket: Ticket = {
             id: 1,
             title: "Test",
             description: "Test",
@@ -44,13 +46,13 @@ describe("getTicketUrgencyScore", () => {
 
         mockTickets.push(ticket);
 
-        const result = await getTicketUrgencyScore(1);
+        const result: urgencyResponse = await getTicketUrgencyScore(1);
 
         expect(result.urgencyLevel).toBe("High urgency. Prioritize resolution.");
     });
 
     it("calculates moderate urgencyLevel", async () => {
-        const ticket = {
+        const ticket: Ticket = {
             id: 1,
             title: "Test",
             description: "Test",
@@ -61,13 +63,13 @@ describe("getTicketUrgencyScore", () => {
 
         mockTickets.push(ticket);
 
-        const result = await getTicketUrgencyScore(1);
+        const result: urgencyResponse = await getTicketUrgencyScore(1);
 
         expect(result.urgencyLevel).toBe("Moderate. Schedule for attention.");
     });
 
     it("calculates low urgencyLevel", async () => {
-        const ticket = {
+        const ticket: Ticket = {
             id: 1,
             title: "Test",
             description: "Test",
@@ -78,13 +80,13 @@ describe("getTicketUrgencyScore", () => {
 
         mockTickets.push(ticket);
 
-        const result = await getTicketUrgencyScore(1);
+        const result: urgencyResponse = await getTicketUrgencyScore(1);
 
         expect(result.urgencyLevel).toBe("Low urgency. Address when capacity allows.");
     });
 
     it("calculates resolved urgencyLevel", async () => {
-        const ticket = {
+        const ticket: Ticket = {
             id: 1,
             title: "Test",
             description: "Test",
@@ -95,7 +97,7 @@ describe("getTicketUrgencyScore", () => {
 
         mockTickets.push(ticket);
 
-        const result = await getTicketUrgencyScore(1);
+        const result: urgencyResponse = await getTicketUrgencyScore(1);
 
         expect(result.urgencyLevel).toBe("Minimal, Ticket resolved.");
     });

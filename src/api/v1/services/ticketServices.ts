@@ -22,8 +22,8 @@ export const createTicket = async (ticketData: {
     status: string;
 }): Promise<Ticket> => {
 
-    const lastId = mockTickets.length ? mockTickets[mockTickets.length - 1].id : 0;
-    const newId = lastId + 1
+    const lastId: number = mockTickets.length ? mockTickets[mockTickets.length - 1].id : 0;
+    const newId: number = lastId + 1
 
     const newTicket: Ticket = {
         id: newId,

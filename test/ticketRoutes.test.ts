@@ -26,7 +26,7 @@ describe("Ticket Routes", () => {
 
     describe("POST /api/v1/tickets/", () => {
         it("should call createTicket controller with valid data", async () => {
-            const mockItem = {
+            const mockItem: {} = {
                 title: "Test",
                 description: "Test",
                 priority: "high",
@@ -41,7 +41,7 @@ describe("Ticket Routes", () => {
 
     describe("PUT /api/v1/tickets/:id", () => {
         it("should call updateTicket controller with valid data", async () => {
-            const mockItem = {
+            const mockItem: {} = {
                 title: "Test",
                 description: "Test",
                 priority: "medium",

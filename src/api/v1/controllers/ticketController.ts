@@ -4,8 +4,8 @@ import * as ticketServices from "../services/ticketServices";
 import type { Ticket } from "../models/ticketModel";
 import { urgencyResponse } from "../models/urgencyResponseModel";
 
-const allowedPriorities = ["critical", "high", "medium", "low"];
-const allowedStatus = ["open", "in-progress", "resolved"];
+const allowedPriorities: string[] = ["critical", "high", "medium", "low"];
+const allowedStatus: string[] = ["open", "in-progress", "resolved"];
 
 export const getAllTickets = async (
     req: Request,
@@ -53,7 +53,12 @@ export const createTicket = async (
 
         } else {
             const { title, description, priority, status } = req.body;
-            const ticketData = { title, description, priority, status };
+            const ticketData: {
+                title: string;
+                description: string;
+                priority: string;
+                status: string;
+            } = { title, description, priority, status };
 
             const newTicket: Ticket = await ticketServices.createTicket(ticketData);
             res.status(HTTP_STATUS.CREATED).json({
@@ -85,7 +90,7 @@ export const updateTicket = async (
 
         } else {
 
-            const id = Number(req.params.id);
+            const id: number = Number(req.params.id);
 
             const { priority, status } = req.body;
 
@@ -134,9 +139,9 @@ export const getTicketById = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const id: number = Number(req.params.id);
 
-        const ticket = await ticketServices.getTicketById(id);
+        const ticket: Ticket = await ticketServices.getTicketById(id);
 
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket retrieved successfully",
@@ -160,7 +165,7 @@ export const getTicketUrgencyScore = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const id = Number(req.params.id);
+        const id: number = Number(req.params.id);
         const ticket: urgencyResponse = await ticketServices.getTicketUrgencyScore(id);
 
         res.status(HTTP_STATUS.OK).json({
