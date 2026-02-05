@@ -99,14 +99,14 @@ export const updateTicket = async (
     }
 };
 
-export const deleteEvent = async (
+export const deleteTicket = async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
     try {
         const { id } = req.params;
-        await ticketServices.deleteEvent(id);
+        await ticketServices.deleteTicket(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket deleted successfully",
         });
@@ -115,34 +115,34 @@ export const deleteEvent = async (
     }
 };
 
-export const getEventById = async (
+export const getTicketById = async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { title } = req.params;
-        const event: Ticket = await ticketServices.getEventById(Number(title));
+        const { id } = req.params;
+        const ticket: Ticket = await ticketServices.getTicketById(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket retrieved successfully",
-            data: event,
+            data: ticket,
         });
     } catch (error) {
         next(error);
     }
 };
 
-export const getEventPopularityScore = async (
+export const getTicketUrgencyScore = async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { title } = req.params;
-        const event: Ticket = await ticketServices.getEventPopularityScore(Number(title));
+        const { id } = req.params;
+        const ticket: Ticket = await ticketServices.getTicketUrgencyScore(id);
         res.status(HTTP_STATUS.OK).json({
             message: "Ticket retrieved successfully",
-            data: event,
+            data: ticket,
         });
     } catch (error) {
         next(error);
